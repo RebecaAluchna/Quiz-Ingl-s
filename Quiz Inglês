@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz: IF + WILL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question h3 {
+      font-size: 18px;
+    }
+    .options button {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      background: #eee;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .options button.correct {
+      background: #c8e6c9;
+    }
+    .options button.wrong {
+      background: #ffcdd2;
+    }
+    .options button:disabled {
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container" id="quiz"></div>
+
+  <script>
+    const questions = [
+      // 10 sobre vocabulário e conteúdo geral
+      { q: "What does 'jogging' mean?", a: "corrida leve", options: ["remar", "corrida leve", "patinação"] },
+      { q: "How do you say 'feira de artesanato' in English?", a: "arts and crafts market", options: ["charity football match", "arts and crafts market", "food festival"] },
+      { q: "Which is an outdoor activity?", a: "kite-flying", options: ["bench", "kite-flying", "café"] },
+      { q: "What is a 'duck pond'?", a: "lago de patos", options: ["pista de skate", "teatro ao ar livre", "lago de patos"] },
+      { q: "Translate 'academia ao ar livre'", a: "outdoor gym", options: ["lake", "outdoor gym", "open-air theatre"] },
+      { q: "'Charity football match' is...", a: "partida beneficente", options: ["festival de música", "partida beneficente", "exposição de carros"] },
+      { q: "What is 'rowing' in Portuguese?", a: "remar", options: ["andar de patinete", "remar", "correr"] },
+      { q: "Which one is NOT a park feature?", a: "drone flying", options: ["bridge", "duck pond", "drone flying"] },
+      { q: "'Working out' means:", a: "se exercitar", options: ["andar de bicicleta", "empinar pipa", "se exercitar"] },
+      { q: "What is a 'funfair'?", a: "parque de diversões", options: ["feira de artesanato", "parque de diversões", "corrida divertida"] },
+
+      // 10 sobre IF + WILL
+      { q: "Which sentence is correct?", a: "If I study, I'll pass.", options: ["If I will study, I pass.", "If I study, I'll pass.", "If I studied, I will pass."] },
+      { q: "What tense comes after 'if'?", a: "Present simple", options: ["Future", "Present simple", "Past simple"] },
+      { q: "Which one uses 'will' correctly?", a: "I'll help you.", options: ["I help you.", "I will to help.", "I'll help you."] },
+      { q: "What's the negative form of 'will'?", a: "won't", options: ["doesn't", "won't", "didn't"] },
+      { q: "Translate: 'Se eu correr, vou me atrasar.'", a: "If I run, I'll be late.", options: ["If I run, I'm late.", "If I run, I'll be late.", "If I will run, I'll be late."] },
+      { q: "Choose the correct question form:", a: "Will you come?", options: ["You will come?", "Will you come?", "Do you will come?"] },
+      { q: "What's wrong: 'If she will come, I'll wait.'", a: "'will' can't follow 'if'", options: ["missing subject", "wrong tense", "'will' can't follow 'if'"] },
+      { q: "Which sentence is First Conditional?", a: "If it rains, we'll stay home.", options: ["If it rains, we'll stay home.", "If it rained, we would stay.", "If it rain, we stay."] },
+      { q: "Complete: 'If I ___ early, I'll help.'", a: "arrive", options: ["arrive", "will arrive", "arrives"] },
+      { q: "When do we use 'will'?", a: "To talk about the future", options: ["To describe the past", "To talk about the present", "To talk about the future"] }
+    ];
+
+    const quizEl = document.getElementById("quiz");
+
+    questions.forEach((qObj, index) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question";
+
+      const qTitle = document.createElement("h3");
+      qTitle.innerText = `${index + 1}. ${qObj.q}`;
+      qDiv.appendChild(qTitle);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.className = "options";
+
+      qObj.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => {
+          Array.from(optionsDiv.children).forEach(b => b.disabled = true);
+          if (opt === qObj.a) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("wrong");
+            const correctBtn = Array.from(optionsDiv.children).find(b => b.innerText === qObj.a);
+            correctBtn.classList.add("correct");
+          }
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(optionsDiv);
+      quizEl.appendChild(qDiv);
+    });
+  </script>
+</body>
+</html>
